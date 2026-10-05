@@ -5,6 +5,9 @@ export const DOMAIN_COLORS = {
   root: 0xc9a227,
 };
 
+// Optional on any trait: similarity: { "tipA::tipB": 0.8 }
+// Pair keys are sorted tip ids. Values are 0–1 and set trait-arc stroke width.
+// Binary traits omit the field and draw at constant width.
 export const TRAITS = {
   motors: {
     id: "motors",
@@ -69,19 +72,34 @@ export const TRAITS = {
     label: "Carbon from air",
     note: "Bacteria and archaea",
     help: "Two recipes for pulling living carbon out of CO₂, on opposite prokaryotic branches.",
+    ancestor: {
+      kicker: "Last shared organism",
+      lacked: "no shared recipe",
+      body: "LUCA. A cell at the root of the tree. It lived on chemistry. It did not yet have two kingdoms’ separate machines for turning CO₂ into biomass.",
+    },
+    solution: {
+      kicker: "Shared solution",
+      body: "Pull living carbon out of air — sunlight on one branch, hydrogen and methane on the other. Same hunger. Two inventions.",
+    },
     examples: [
       {
         tip: "cyanobacteria",
         name: "Prochlorococcus",
         latin: "Prochlorococcus marinus",
         image: "img/prochloro.jpg",
-        blurb: "The ocean’s most abundant photosynthesizer, fixing carbon with sunlight.",
+        env: "Open ocean · sunlight",
+        need: "Thin ocean light. Carbon in the air.",
+        demo: "prochloro",
+        blurb: "The ocean’s most abundant photosynthesizer. CO₂ in, sugar out, powered by light.",
       },
       {
         tip: "methanobacterium",
         name: "Methanobacterium",
         latin: "Methanobacterium",
         image: "img/methano.jpg",
+        env: "Dark mud · hydrogen",
+        need: "No sun. Only gas in the dark.",
+        demo: "methano",
         blurb: "An archaeon that builds biomass from CO₂ and hydrogen, and breathes out methane.",
       },
     ],
@@ -91,12 +109,24 @@ export const TRAITS = {
     label: "Carcinization",
     note: "Crabs, again and again",
     help: "Evolution keeps making crabs — a short, wide body, evolved many times in crustaceans.",
+    ancestor: {
+      kicker: "Last shared organism",
+      lacked: "no crab body",
+      body: "A long-bodied crustacean. It had a tail it could flap. It walked forward. It was not yet a crab.",
+    },
+    solution: {
+      kicker: "Shared solution",
+      body: "Tuck the tail, widen the carapace, walk sideways. Evolution keeps making crabs.",
+    },
     examples: [
       {
         tip: "brachyura",
         name: "Blue crab",
         latin: "Callinectes sapidus",
         image: "img/blue-crab.jpg",
+        env: "Estuary · shells",
+        need: "Shallows. Predators. A tail in the way.",
+        demo: "bluecrab",
         blurb: "A true crab: the classic wide carapace evolution keeps rediscovering.",
       },
       {
@@ -104,29 +134,82 @@ export const TRAITS = {
         name: "Coconut crab",
         latin: "Birgus latro",
         image: "img/coconut-crab.jpg",
+        env: "Island forest · nuts",
+        need: "Land. Climbing. Shells that will not open.",
+        demo: "coconutcrab",
         blurb: "An anomuran that arrived at the crab shape on a separate crustacean branch.",
       },
     ],
   },
   antifreeze: {
     id: "antifreeze",
-    label: "Antifreeze proteins",
+    label: "Antifreeze",
     note: "Arctic and Antarctic fish",
     help: "The same icy-blood trick, invented separately at opposite poles.",
+    ancestor: {
+      kicker: "Last shared organism",
+      lacked: "no antifreeze",
+      body: "A bony fish of temperate seas. Cold was seasonal. Its blood had no antifreeze proteins — ice was not yet a year-round problem.",
+    },
+    solution: {
+      kicker: "Shared solution",
+      body: "Proteins that stop ice from growing in the blood — invented at both poles, from an ancestor that never needed them.",
+    },
     examples: [
       {
         tip: "arctic-cod",
         name: "Arctic cod",
         latin: "Boreogadus saida",
         image: "img/arctic-cod.jpg",
-        blurb: "Northern fishes that keep their blood from freezing with antifreeze proteins.",
+        env: "Pack ice · polar night",
+        need: "Sea ice. Blood that wants to freeze.",
+        demo: "arcticcod",
+        blurb: "Northern fishes that keep their blood liquid in ice-covered seas with antifreeze proteins.",
       },
       {
         tip: "toothfish",
         name: "Antarctic toothfish",
         latin: "Dissostichus mawsoni",
         image: "img/toothfish.jpg",
+        env: "Southern Ocean · ice shelf",
+        need: "The Southern Ocean. Ice from below.",
+        demo: "toothfish",
         blurb: "A Southern Ocean hunter with its own, independently evolved antifreeze.",
+      },
+    ],
+  },
+  wings: {
+    id: "wings",
+    label: "Wings",
+    note: "Insects and birds",
+    help: "Powered flight, invented on an arthropod branch and again in vertebrates.",
+    ancestor: {
+      kicker: "Last shared organism",
+      lacked: "no wings",
+      body: "A soft-bodied bilaterian in the sea. It crawled. Air was not a place it could go — wings were not yet a thought the tree could have.",
+    },
+    solution: {
+      kicker: "Shared solution",
+      body: "A surface that beats against air — chitin on one branch, feathered bone on the other. Same problem. Two machines for leaving the ground.",
+    },
+    examples: [
+      {
+        tip: "insects",
+        name: "Dragonfly",
+        latin: "Anax junius",
+        env: "Still water · air",
+        need: "Prey in the air. A body built for water’s edge.",
+        demo: "dragonfly",
+        blurb: "An insect wing of chitin and veins. Flight arose here hundreds of millions of years before birds.",
+      },
+      {
+        tip: "birds",
+        name: "Peregrine falcon",
+        latin: "Falco peregrinus",
+        env: "Open sky · birds",
+        need: "Height. Speed. Prey that also flies.",
+        demo: "falcon",
+        blurb: "A vertebrate wing of bone, muscle, and feathers — flight rebuilt on a separate branch.",
       },
     ],
   },
@@ -135,12 +218,24 @@ export const TRAITS = {
     label: "C4 photosynthesis",
     note: "Grasses and saltbushes",
     help: "A drought-and-sunlight pathway that evolved more than 60 times in flowering plants.",
+    ancestor: {
+      kicker: "Last shared organism",
+      lacked: "no C4",
+      body: "A flowering plant with ordinary C3 photosynthesis. It could make sugar from air, but not this drought-and-sunlight shortcut.",
+    },
+    solution: {
+      kicker: "Shared solution",
+      body: "A plumbing-and-enzyme trick for capturing CO₂ in hot, dry light — evolved more than 60 times. Invented twice here, and many times besides.",
+    },
     examples: [
       {
         tip: "grasses",
         name: "Maize",
         latin: "Zea mays",
         image: "img/maize.jpg",
+        env: "Open field · hard sun",
+        need: "Hot light. Water that wants to leave.",
+        demo: "maize",
         blurb: "C4 arose some 20 times in grasses alone — maize is one famous product.",
       },
       {
@@ -148,29 +243,111 @@ export const TRAITS = {
         name: "Saltbush",
         latin: "Atriplex",
         image: "img/atriplex.jpg",
+        env: "Dry basin · salt",
+        need: "Dry basin. Salt and sun.",
+        demo: "saltbush",
         blurb: "A eudicot lineage that found the same high-light, arid-land biochemistry.",
+      },
+    ],
+  },
+  bodies: {
+    id: "bodies",
+    label: "Multicellular bodies",
+    note: "Plants, animals, kelp",
+    help: "Bodies of many cells, built independently in plants, animals, and brown algae — three distant eukaryotic experiments.",
+    examples: [
+      {
+        tip: "conifers",
+        name: "Coast redwood",
+        latin: "Sequoia sempervirens",
+        image: "img/redwood.jpg",
+        blurb: "A land plant that stacks cells into wood, leaves, and a canopy hundreds of feet tall.",
+      },
+      {
+        tip: "cnidarians",
+        name: "Moon jelly",
+        latin: "Aurelia aurita",
+        image: "img/jelly.jpg",
+        blurb: "An animal body: tissues and a gut, on a branch that never made wood or kelp blades.",
+      },
+      {
+        tip: "phaeophytes",
+        name: "Giant kelp",
+        latin: "Macrocystis pyrifera",
+        image: "img/kelp.jpg",
+        blurb: "A brown alga — not a plant — that built holdfasts, stipes, and blades on its own.",
+      },
+    ],
+  },
+  spines: {
+    id: "spines",
+    label: "Spines",
+    note: "Cacti and hedgehogs",
+    help: "A coat of sharp points for not getting eaten — grown from plant tissue, and again from animal skin.",
+    ancestor: {
+      kicker: "Last shared organism",
+      lacked: "no spines",
+      body: "A single-celled eukaryote. It had a nucleus and a flagellum. It had no skin, no leaves, no body — spines were not a problem it could have.",
+    },
+    solution: {
+      kicker: "Shared solution",
+      body: "A coat of sharp points — grown from plant tissue, and again from animal skin. Same keep-away geometry. Invented twice.",
+    },
+    examples: [
+      {
+        tip: "cacti",
+        name: "Saguaro",
+        latin: "Carnegiea gigantea",
+        image: "img/cactus.jpg",
+        env: "Desert · thirsty mouths",
+        need: "Desert drought. Mouths that want the water.",
+        demo: "cactus",
+        blurb: "Spines are modified leaves: shade, stored water, and a warning, all in one. Armor grown from plant tissue.",
+      },
+      {
+        tip: "hedgehog",
+        name: "European hedgehog",
+        latin: "Erinaceus europaeus",
+        image: "img/hedgehog.jpg",
+        env: "Night ground · foxes",
+        need: "Night ground. Foxes.",
+        demo: "hedgehog",
+        blurb: "Keratin quills on a mammal. The same keep-away geometry, a different material, a different world.",
       },
     ],
   },
   electric: {
     id: "electric",
-    label: "Electric fish",
+    label: "Electric organs",
     note: "Africa and South America",
     help: "Muscles recast as batteries — once in African elephantfish, once in South American knifefish.",
+    ancestor: {
+      kicker: "Last shared organism",
+      lacked: "no electric organ",
+      body: "A bony fish of ordinary rivers. Its muscles moved it through water. They did not yet fire as a battery — sensing and stunning by electricity was not its trick.",
+    },
+    solution: {
+      kicker: "Shared solution",
+      body: "Muscle recast as a battery — a private sense, and sometimes a weapon. Invented in African rivers, and again in South American ones.",
+    },
     examples: [
       {
         tip: "knifefish",
         name: "Electric eel",
         latin: "Electrophorus electricus",
-        image: "img/electric-eel.jpg",
-        blurb: "A South American knifefish that pulses for sensing — and can stun prey.",
+        env: "Murky river · prey",
+        need: "Dark water. Prey you cannot see.",
+        demo: "eel",
+        blurb: "A South American knifefish that pulses to sense — and can stun prey.",
       },
       {
         tip: "elephantfish",
         name: "Elephantnose fish",
         latin: "Gnathonemus petersii",
-        image: "img/cornish-jack.jpg",
-        blurb: "An African mormyrid — same radiation as the Cornish jack — with its own electric organ.",
+        env: "Turbid river · night",
+        need: "Muddy water. A world made of pulses.",
+        demo: "mormyrid",
+        blurb: "An African mormyrid with its own electric organ — same job, separate invention.",
       },
     ],
   },
@@ -179,19 +356,32 @@ export const TRAITS = {
     label: "Ballistic tongues",
     note: "Chameleons and salamanders",
     help: "The same shooting tongue, in animals hundreds of millions of years apart.",
+    ancestor: {
+      kicker: "Last shared organism",
+      lacked: "no ballistic tongue",
+      body: "An early tetrapod. It had a tongue for tasting and swallowing. It did not yet fire that tongue like a spear.",
+    },
+    solution: {
+      kicker: "Shared solution",
+      body: "A tongue stored like a spring, then thrown farther than the body is long. Built once in lizards, and again in salamanders.",
+    },
     examples: [
       {
         tip: "chameleon",
         name: "Veiled chameleon",
         latin: "Chamaeleo calyptratus",
-        image: "img/chameleon.jpg",
+        env: "Canopy · insects",
+        need: "Distance. Prey that will not wait.",
+        demo: "chameleon",
         blurb: "A lizard that fires a sticky tongue farther than its own body length.",
       },
       {
         tip: "salamander",
         name: "Lungless salamander",
         latin: "Hydromantes platycephalus",
-        image: "img/salamander.jpg",
+        env: "Wet rock · springtails",
+        need: "A crevice. Prey just out of reach.",
+        demo: "salamander",
         blurb: "A woodland amphibian that independently engineered the same ballistic strike.",
       },
     ],
@@ -230,41 +420,69 @@ export const TRAITS = {
     label: "Echolocation",
     note: "Bats and dolphins",
     help: "The hearing protein Prestin — and other genes — converged in bats and toothed whales.",
+    ancestor: {
+      kicker: "Last shared organism",
+      lacked: "no echolocation",
+      body: "A small land mammal. It walked, it heard, it had a larynx. It did not echolocate — night air and dark water were not its problem.",
+    },
+    solution: {
+      kicker: "Shared solution",
+      body: "Hunting by sound — a pulse out, an echo home — invented twice, from an ancestor that only had ordinary hearing.",
+    },
     examples: [
       {
         tip: "bats",
         name: "Little brown bat",
         latin: "Myotis lucifugus",
         image: "img/bat.jpg",
-        blurb: "A microbat that hears its own clicks, with Prestin tuned for high frequencies.",
+        env: "Night air · moths",
+        need: "Night air. Prey you cannot see.",
+        demo: "bat",
+        blurb: "Flying in the dark, a moth is invisible until it returns a click. Ultrasound from the larynx; oversized ears catch the bounce. Sonar, built for air.",
       },
       {
         tip: "dolphins",
         name: "Bottlenose dolphin",
         latin: "Tursiops truncatus",
         image: "img/dolphin.jpg",
-        blurb: "A whale that echolocates underwater — same sensory trick, different world.",
+        env: "Open ocean · fish",
+        need: "Dark water. Prey you cannot see.",
+        demo: "dolphin",
+        blurb: "Underwater, light dies fast. Clicks fire through a fatty melon; the lower jawbone is the microphone. Sonar, built for water.",
       },
     ],
   },
   pheromone: {
     id: "pheromone",
-    label: "Sex attractant",
+    label: "Same lure",
     note: "Butterflies and elephants",
     help: "The same molecule, (Z)-7-dodecen-1-yl acetate, used as a sex lure in moths, butterflies — and Asian elephants.",
+    ancestor: {
+      kicker: "Last shared organism",
+      lacked: "no shared lure",
+      body: "A bilaterian in the Cambrian sea. It had no air to scent, no flowers, no herds. The molecule that would later call mates on two distant branches was not yet a message.",
+    },
+    solution: {
+      kicker: "Shared solution",
+      body: "The same acetate molecule as a sex lure — written into moths and butterflies, and independently into Asian elephants.",
+    },
     examples: [
       {
         tip: "butterflies",
         name: "Cabbage butterfly",
         latin: "Pieris rapae",
-        image: "img/butterfly.jpg",
+        env: "Field · night air",
+        need: "A mate on the wind. A chemical that carries.",
+        demo: "butterfly",
         blurb: "One of many lepidopterans that advertise with this exact acetate compound.",
       },
       {
         tip: "elephants",
         name: "Asian elephant",
         latin: "Elephas maximus",
-        image: "img/elephant.jpg",
+        env: "Forest · urine trail",
+        need: "A herd spread wide. A signal that lasts.",
+        demo: "elephant",
         blurb: "The same molecule, in urine, tells bulls that a cow is ready to mate.",
       },
     ],
@@ -461,6 +679,7 @@ export const TREE = {
               length: 1.2,
               spread: 1.22,
               children: [
+                { id: "cnidarians", name: "Cnidarians", domain: "eukaryotes", length: 1.18 },
                 {
                   id: "arthropods",
                   name: "Arthropods",
@@ -661,6 +880,7 @@ export const TREE = {
                                   ],
                                 },
                                 { id: "elephants", name: "Elephants", domain: "eukaryotes", length: 0.92 },
+                                { id: "hedgehog", name: "Hedgehogs", domain: "eukaryotes", length: 0.88 },
                               ],
                             },
                           ],
@@ -708,33 +928,71 @@ export const TREE = {
           domain: "eukaryotes",
           length: 1.22,
           direction: V3(0.22, 0.96, 0.15),
-          spread: 0.48,
+          spread: 0.72,
           children: [
             {
               id: "land-plants",
               name: "Land plants",
               domain: "eukaryotes",
-              length: 1.12,
-              spread: 0.58,
+              length: 1.18,
+              spread: 0.92,
               children: [
+                { id: "mosses", name: "Mosses", domain: "eukaryotes", length: 0.95 },
                 {
-                  id: "monocots",
-                  name: "Monocots",
+                  id: "ferns",
+                  name: "Ferns",
                   domain: "eukaryotes",
-                  length: 0.82,
-                  spread: 0.32,
+                  length: 1.05,
+                  spread: 0.42,
                   children: [
-                    { id: "grasses", name: "Grasses", domain: "eukaryotes", length: 1.05 },
+                    { id: "tree-ferns", name: "Tree ferns", domain: "eukaryotes", length: 0.92 },
+                    { id: "horsetails", name: "Horsetails", domain: "eukaryotes", length: 0.78 },
                   ],
                 },
                 {
-                  id: "eudicots",
-                  name: "Eudicots",
+                  id: "gymnosperms",
+                  name: "Gymnosperms",
                   domain: "eukaryotes",
-                  length: 0.86,
-                  spread: 0.32,
+                  length: 1.08,
+                  spread: 0.48,
                   children: [
-                    { id: "atriplex", name: "Saltbushes", domain: "eukaryotes", length: 0.98 },
+                    { id: "conifers", name: "Conifers", domain: "eukaryotes", length: 1.12 },
+                    { id: "cycads", name: "Cycads", domain: "eukaryotes", length: 0.88 },
+                    { id: "ginkgo", name: "Ginkgo", domain: "eukaryotes", length: 0.82 },
+                  ],
+                },
+                {
+                  id: "flowering",
+                  name: "Flowering plants",
+                  domain: "eukaryotes",
+                  length: 1.15,
+                  spread: 0.78,
+                  children: [
+                    {
+                      id: "monocots",
+                      name: "Monocots",
+                      domain: "eukaryotes",
+                      length: 0.92,
+                      spread: 0.52,
+                      children: [
+                        { id: "grasses", name: "Grasses", domain: "eukaryotes", length: 1.05 },
+                        { id: "palms", name: "Palms", domain: "eukaryotes", length: 0.98 },
+                        { id: "orchids", name: "Orchids", domain: "eukaryotes", length: 1.02 },
+                      ],
+                    },
+                    {
+                      id: "eudicots",
+                      name: "Eudicots",
+                      domain: "eukaryotes",
+                      length: 0.96,
+                      spread: 0.55,
+                      children: [
+                        { id: "atriplex", name: "Saltbushes", domain: "eukaryotes", length: 0.98 },
+                        { id: "cacti", name: "Cacti", domain: "eukaryotes", length: 1.08 },
+                        { id: "legumes", name: "Legumes", domain: "eukaryotes", length: 0.92 },
+                        { id: "roses", name: "Roses", domain: "eukaryotes", length: 0.88 },
+                      ],
+                    },
                   ],
                 },
               ],
@@ -804,20 +1062,69 @@ export const TREE = {
   ],
 };
 
-function addTwigs(node, depth = 0) {
-  const kids = node.children;
-  if (!kids) return;
-  kids.forEach((child) => addTwigs(child, depth + 1));
-  if (depth < 2 || kids.length === 0 || kids.length > 9) return;
-  const extra = kids.length <= 3 ? 3 : 2;
-  for (let i = 0; i < extra; i += 1) {
-    kids.push({
-      id: `${node.id}-twig-${i}`,
-      name: "",
-      domain: node.domain,
-      length: 0.38 + ((i * 13 + node.id.length) % 8) * 0.05,
-    });
+// Median/summary ages from TimeTree 5 (Kumar et al. 2022; timetree.org / api.timetree.org).
+// Values are millions of years before present. Extant tips are 0.
+const TIMETREE_AGES = {
+  root: 4146.8, // cellular organisms
+  bacteria: 3306.37,
+  "thermophiles-b": 2868.85, // Thermotogati
+  cyanoline: 1341.47, // Cyanobacteriota
+  proteobacteria: 2077.69, // Pseudomonadota
+  "pvc-ish": 2789.41, // MRCA Acidobacterium–Chloroflexus
+  archaea: 4146.8, // Archaea
+  crenarchaea: 2807.56, // Thermoproteota
+  euryarchaea: 3053.83, // Methanobacteriati
+  eukaryotes: 1455.26,
+  opisthokonts: 896.51,
+  animals: 750.1, // Metazoa
+  arthropods: 559.62,
+  insects: 431.27,
+  crustaceans: 534.67,
+  decapods: 316.72,
+  molluscs: 534.26,
+  chordates: 610.37,
+  fishes: 391.49, // Actinopterygii
+  osteoglossomorphs: 218.91,
+  gadiforms: 48.08, // Gadiformes
+  percomorphs: 122.39, // Percomorphaceae
+  ostariophysi: 159.73,
+  tetrapods: 352.08,
+  amphibians: 316.95,
+  amniotes: 318.82,
+  squamates: 200.13,
+  birds: 107.56, // Aves
+  icterids: 19.75, // Passeriformes
+  motacillids: 19.75, // Passeriformes
+  mammals: 181.19,
+  primates: 71.65,
+  cetaceans: 33.55,
+  plants: 974.18, // Viridiplantae
+  "land-plants": 482.94, // Embryophyta
+  ferns: 346.2, // Polypodiopsida
+  gymnosperms: 261.78, // Acrogymnospermae
+  flowering: 196.28, // Magnoliopsida
+  monocots: 140.82, // Liliopsida
+  eudicots: 121.06, // Pentapetalae
+  amoebozoa: 1206.34,
+  rhizaria: 1097.03,
+  alveolates: 1082.39,
+  heterokonts: 660.85, // Stramenopiles
+  discicristates: 1175.63, // Euglenozoa
+  excavates: 1220.0, // Metamonada
+};
+
+function assignTimeTreeAges(node) {
+  const kids = node.children ?? [];
+  kids.forEach(assignTimeTreeAges);
+  if (!kids.length) {
+    node.age = 0;
+    return;
   }
+  const sourced = TIMETREE_AGES[node.id];
+  if (sourced == null) {
+    throw new Error(`Missing TimeTree age for internal node "${node.id}"`);
+  }
+  node.age = sourced;
 }
 
-addTwigs(TREE);
+assignTimeTreeAges(TREE);
